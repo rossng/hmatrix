@@ -61,7 +61,10 @@ Similar should be build under other OSes, like Linux and OSX. This recipe is for
 (Not tested). It should be possible to install the new package hmatrix >= 0.16 using
 the dlls contributed by Gilberto Camara available in [gsl-lapack-windows.zip][winpack].
 
-1) > cabal update
+1) 
+```
+> cabal update
+```
 
 2) Download and unzip [gsl-lapack-windows.zip][winpack] into a stable folder %GSL%
 
