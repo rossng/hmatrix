@@ -69,14 +69,14 @@ $ make install
 ### Cabal-based build (not tested)
 
 It should be possible to install the new package `hmatrix >= 0.16` using
-the DLLs contributed by Gilberto Camara available in [gsl-lapack-windows.zip][winpack].
+the DLLs contributed by Gilberto Camara available in [gsl-lapack-windows.zip](https://github.com/downloads/AlbertoRuiz/hmatrix/gsl-lapack-windows.zip).
 
 1) 
 ```
 > cabal update
 ```
 
-2) Download and unzip [gsl-lapack-windows.zip][winpack] into a stable folder `%GSL%`
+2) Download and unzip [gsl-lapack-windows.zip](https://github.com/downloads/AlbertoRuiz/hmatrix/gsl-lapack-windows.zip) into a stable folder `%GSL%`
 
 3)
     1) In an MSys shell:
