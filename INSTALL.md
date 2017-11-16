@@ -66,7 +66,9 @@ $ make install
 > stack install --flag hmatrix:openblas --extra-include-dirs=C:\Users\{User}\AppData\Local\Programs\stack\x86_64-windows\msys2-20150512\opt\OpenBLAS\include --extra-lib-dirs=C:\Users\{User}\AppData\Local\Programs\stack\x86_64-windows\msys2-20150512\opt\OpenBLAS\bin --extra-lib-dirs=C:\Users\{User}\AppData\Local\Programs\stack\x86_64-windows\msys2-20150512\usr\lib\gcc\x86_64-pc-msys\6.3.0\
 ```
 
-Note: If you install `gcc-fortran` now, you will get `libgfortran` version 7 or later. In `libgfortran` 7, the DLL changed from `libgfortran-3.dll` to `libgfortran-4.dll`. Support for this change was [added](https://github.com/albertoruiz/hmatrix/commit/f2eadcbadb07aaf93c8e727488c1198ff22e17f2#diff-e5faeafc4e191407dbfa8f9132344ab1R124) in `hmatrix 0.18.1.0`. 
+#### Troubleshooting
+
+If you install `gcc-fortran` now, you will get `libgfortran` version 7 or later. In `libgfortran` 7, the DLL changed from `libgfortran-3.dll` to `libgfortran-4.dll`. Support for this change was [added](https://github.com/albertoruiz/hmatrix/commit/f2eadcbadb07aaf93c8e727488c1198ff22e17f2#diff-e5faeafc4e191407dbfa8f9132344ab1R124) in `hmatrix 0.18.1.0`. 
 
 If you have issues with the last step, try installing the `mingw64` version of `libgfortran`:
 
@@ -74,7 +76,7 @@ If you have issues with the last step, try installing the `mingw64` version of `
 $ pacman -S mingw-w64-x86_64-toolchain mingw-w64-x86_64-glpk mingw-w64-x86_64-gsl
 ```
 
-You may also need to make the following changes:
+You may also need to make the following changes to the Cabal files:
 
 * `packages/base/hmatrix.cabal`
   * From `extra-libraries: libopenblas libgcc_s_seh-1 libgfortran libquadmath-0`
@@ -85,6 +87,26 @@ You may also need to make the following changes:
   * To `extra-libraries: gsl`
 
 Then run the `stack install` command in step 3 again. You may need to add `--extra-lib-dirs=C:\Users\{User}\AppData\Local\Programs\stack\x86_64-windows\msys2-20150512\mingw64\bin`.
+
+You can run the test suite with:
+
+```
+stack test --flag hmatrix:openblas --extra-include-dirs=C:\Users\{User}\AppData\Local\Programs\stack\x86_64-windows\msys2-20150512\opt\OpenBLAS\include --extra-lib-dirs=C:\Users\{User}\AppData\Local\Programs\stack\x86_64-windows\msys2-20150512\opt\OpenBLAS\bin
+```
+
+If you get a runtime error about missing `libopenblas.dll`, ensure that the OpenBLAS folder containing this DLL is added to your `PATH` environment variable.
+
+#### Permanently adding paths to `stack.yaml`
+
+If you add the following lines to `stack.yaml`, you should be able to run `stack` commands with just `stack {command} --flag hmatrix:openblas`:
+
+```
+extra-include-dirs:
+- C:\Users\{User}\AppData\Local\Programs\stack\x86_64-windows\msys2-20150512\opt\OpenBLAS\include
+extra-lib-dirs:
+- C:\Users\{User}\AppData\Local\Programs\stack\x86_64-windows\msys2-20150512\opt\OpenBLAS\bin
+- C:\Users\{User}\AppData\Local\Programs\stack\x86_64-windows\msys2-20150512\usr\lib\gcc\x86_64-pc-msys\6.3.0\
+```
 
 ### Cabal-based build (not tested)
 
